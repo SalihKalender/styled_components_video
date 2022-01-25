@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { css, keyframes } from 'styled-components'
 
 const Wrapper = styled.section`
   width: 40%;
@@ -13,6 +13,16 @@ const Button = styled.button`
   background: #333;
   border: 2px solid #a80;
   padding: ${props => props.size || '20px'};
+  margin: 15px;
+
+  &:hover {
+    color: #20BAC9
+  }
+
+  & + & {
+    color: #0B5F3D
+  }
+
 `
 
 const XLButton = styled(Button)`
@@ -29,6 +39,7 @@ const Input = styled.input.attrs(props => (
   padding: 10px 20px;
 `
 
+
 const ReverseButton = (props) => (
   <Button primary size='30px' children={props.children.split('').reverse()} />
 )
@@ -37,37 +48,57 @@ const MessageWrapper = ({ message }) => (
   <Wrapper BG> {message} </Wrapper>
 )
 
+const ModeContainer = styled.div`
+  ${props => {
+    switch(props.mode) {
+      case 'dark':
+        return css`
+          color: #fff;
+          background: #333;
+        `
+      default:
+        return css`
+          color: #333;
+          background: #fff;
+        `
+    }
+  }}
+  padding: 40px;
+  margin: 25px;
+`
+
+
+const rotateAnimation = keyframes`
+  from {
+    transform: rotate(0deg)
+  }
+  to {
+    transform: rotate(360deg)
+  }
+`
+const RotateConteiner = styled.div`
+  animation: ${rotateAnimation} 2s linear infinite;
+  margin: 20px;
+  padding: 20px;
+`
+
 function App() {
+  //! Burada styled Component Olusturma !!!!
   return (
     <Wrapper>
-      <Button>No Props</Button>
+      <Button primary>Primary Button</Button>
+      <Button primary>Primary Button</Button>
       <br />
-      <br />
-      <br />
-      <Button primary>Primary</Button>
-      <br />
-      <br />
-      <br />
-      <XLButton>XL Button</XLButton>
-      <br />
-      <br />
-      <br />
-      <br />
-      <ReverseButton>
-        Salih Kalender
-      </ReverseButton>
-      <br />
-      <br />
-      <Input t='password' />
-      <br />
-      <br />
-      <Input />
-      <br />
-      <br />
-      <Input t='radio'/>
-      <br />
-      <br />
-      <MessageWrapper message='Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci velit neque asperiores harum tempore vitae deleniti molestias amet ipsum sunt.' />
+      <Input t='radio' />
+      <ModeContainer mode='dark'>
+        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Blanditiis, voluptatum ipsam. Earum accusantium facilis quasi incidunt molestias, provident quos accusamus?
+      </ModeContainer>
+      <ModeContainer>
+        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Unde fugiat cumque eum nam nisi vel nesciunt suscipit voluptatem? Sed, accusamus.
+      </ModeContainer>
+      <RotateConteiner>
+      💅🏾
+      </RotateConteiner>
     </Wrapper>
   )
 }
